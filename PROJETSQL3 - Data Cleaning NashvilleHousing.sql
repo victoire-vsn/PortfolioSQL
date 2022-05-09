@@ -1,3 +1,5 @@
+-- PROJETSQL3 - Data Cleaning NashvilleHousing
+
 -- Modifier le format de la colonne "SaleDate"
 
 SELECT SaleDateConverted, CONVERT(Date,SaleDate) FROM NashvilleHousing
@@ -22,7 +24,7 @@ SET PropertyAddress = ISNULL(a.PropertyAddress,b.PropertyAddress) FROM Nashville
 JOIN NashvilleHousing b ON a.ParcelID=b.ParcelID AND a.UniqueID <> b.UniqueID
 WHERE a.PropertyAddress IS NULL;
 
--- Séparer la colonne "PropertyAddress" en 2 colonnes (adresse, ville)
+-- SÃ©parer la colonne "PropertyAddress" en 2 colonnes (adresse, ville)
 
 SELECT PropertyAddress
 SUBSTRING(PropertyAddress,1, CHARINDEX(',',PropertyAddress)-1) as PropertyAddress,
@@ -41,7 +43,7 @@ SET PropertyCity = SUBSTRING(PropertyAddress, CHARINDEX(',',PropertyAddress)+1,L
 ALTER TABLE NashvilleHousing 
 DROP COLUMN PropertyAddress
 
--- Séparer la colonne "OwnerAddress" en 3 colonnes (adresse, ville, état)
+-- SÃ©parer la colonne "OwnerAddress" en 3 colonnes (adresse, ville, Ã©tat)
 
 SELECT OwnerAddress, 
 PARSENAME(REPLACE(OwnerAddress,',','.'),3) AS OwnerStreet,
